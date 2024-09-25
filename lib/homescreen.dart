@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: ElevatedButton(
                       onPressed: () {
-                        pushWithSlideTransition(context, const SignUpScreen());
+                        pushWithSlideTransition(context, const LogInScreen());
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: const Color(0xFF7E01FB),

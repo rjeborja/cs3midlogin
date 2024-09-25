@@ -1,6 +1,7 @@
 import 'package:cs3midlogin/navigation_utils.dart';
 import 'package:cs3midlogin/signupscreen.dart';
 import 'package:flutter/material.dart';
+import 'login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -112,7 +113,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             IconButton(
                                 iconSize: iconSize,
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  pushWithSlideTransition(context, const Login());
                                 },
                                 icon: const FaIcon(
                                   FontAwesomeIcons.google,
