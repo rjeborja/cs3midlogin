@@ -1,7 +1,8 @@
+import 'package:cs3midlogin/landingpage.dart';
 import 'package:flutter/material.dart';
 import 'loginscreen.dart';
 import 'homescreen.dart';
-import 'login.dart';
+import 'landingpage.dart';
 import 'navigation_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -152,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 iconSize: iconSize,
                                 onPressed: () {
                                   pushWithSlideTransition(
-                                      context, const Login());
+                                      context, const LandingPage());
                                 },
                                 icon: const FaIcon(
                                   FontAwesomeIcons.google,

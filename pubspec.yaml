@@ -7,9 +7,12 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
+  dio: ^5.7.0
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.7.0
+  http: ^1.2.2
+  wordpress_client: ^8.5.4
 
 dev_dependencies:
   flutter_test:
