@@ -37,7 +37,7 @@ class _LandingPageState extends State<LandingPage> {
       isLoading = true;
     });
     final response = await http.get(Uri.parse(
-        'https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'));
+        'https://www.themealdb.com/api/json/v1/1/search.php?f=b'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data['meals'] != null) {
