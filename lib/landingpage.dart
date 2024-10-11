@@ -64,6 +64,12 @@ class _LandingPageState extends State<LandingPage> {
   List<Meal> Meals = [];
   bool isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   Future<void> fetchData() async {
     setState(() {
       isLoading = true;
@@ -102,10 +108,6 @@ class _LandingPageState extends State<LandingPage> {
                     fontWeight: FontWeight.bold)),
             SizedBox(
                 width: 100, height: 100, child: Image.asset('assets/play.png')),
-            ElevatedButton(
-              onPressed: fetchData,
-              child: const Text('Fetch Data'),
-            ),
             const SizedBox(height: 20),
             isLoading
                 ? const Center(
