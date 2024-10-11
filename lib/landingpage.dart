@@ -1,22 +1,54 @@
 import 'package:flutter/material.dart';
+import 'mealcard.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Meal {
   final String idMeal;
   final String strMeal;
+  final String? strDrinkAlternate;
+  final String strCategory;
+  final String strArea;
+  final String strInstructions;
   final String strMealThumb;
+  final String? strTags;
+  final String? strYoutube;
+  final List<String> ingredients;
 
-  Meal(
-      {required this.idMeal,
-      required this.strMeal,
-      required this.strMealThumb});
+  Meal({
+    required this.idMeal,
+    required this.strMeal,
+    this.strDrinkAlternate,
+    required this.strCategory,
+    required this.strArea,
+    required this.strInstructions,
+    required this.strMealThumb,
+    this.strTags,
+    this.strYoutube,
+    required this.ingredients,
+  });
 
   factory Meal.fromJson(Map<String, dynamic> json) {
+    // Extract ingredients dynamically from the JSON
+    List<String> ingredients = [];
+    for (int i = 1; i <= 10; i++) {
+      final ingredient = json['strIngredient$i'];
+      if (ingredient != null && ingredient.isNotEmpty) {
+        ingredients.add(ingredient);
+      }
+    }
+
     return Meal(
-      idMeal: json['idMeal'],
-      strMeal: json['strMeal'],
-      strMealThumb: json['strMealThumb'],
+      idMeal: json['idMeal'] ?? '', // Provide default value for required fields
+      strMeal: json['strMeal'] ?? '',
+      strDrinkAlternate: json['strDrinkAlternate'] as String?,
+      strCategory: json['strCategory'] ?? '',
+      strArea: json['strArea'] ?? '',
+      strInstructions: json['strInstructions'] ?? '',
+      strMealThumb: json['strMealThumb'] ?? '',
+      strTags: json['strTags'] as String?, // Handle nullable fields
+      strYoutube: json['strYoutube'] as String?, // Handle nullable fields
+      ingredients: ingredients,
     );
   }
 }
@@ -36,8 +68,8 @@ class _LandingPageState extends State<LandingPage> {
     setState(() {
       isLoading = true;
     });
-    final response = await http.get(Uri.parse(
-        'https://www.themealdb.com/api/json/v1/1/search.php?f=b'));
+    final response = await http.get(
+        Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?f=b'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data['meals'] != null) {
@@ -50,6 +82,7 @@ class _LandingPageState extends State<LandingPage> {
     }
     setState(() {
       isLoading = false;
+      print(Meals);
     });
   }
 
@@ -75,7 +108,9 @@ class _LandingPageState extends State<LandingPage> {
             ),
             const SizedBox(height: 20),
             isLoading
-                ? const CircularProgressIndicator()
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
                 : Expanded(
                     child: Meals.isEmpty
                         ? const Center(
@@ -84,13 +119,11 @@ class _LandingPageState extends State<LandingPage> {
                         : ListView.builder(
                             itemCount: Meals.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                leading:
-                                    Image.network(Meals[index].strMealThumb),
-                                title: Text(Meals[index].strMeal),
-                              );
+                              // Use the MealCard widget to display each meal
+                              return MealCard(meal: Meals[index]);
                             },
-                          )),
+                          ),
+                  ),
           ],
         ),
       ),
